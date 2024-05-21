@@ -26,6 +26,8 @@ public class SecurityConfig{
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http
+//        , EmailLoginFilter emailLoginFilter
+//        , JwtFilter jwtFilter
     ) throws Exception {
         return http
             .csrf(CsrfConfigurer::disable)
@@ -35,9 +37,12 @@ public class SecurityConfig{
                     .anyRequest().authenticated()
             )
             .formLogin(AbstractHttpConfigurer::disable)
-            .httpBasic(AbstractHttpConfigurer::disable)
+            .httpBasic(AbstractHttpConfigurer::disable) // http://username:password@naver.com
             .logout(AbstractHttpConfigurer::disable)
-            .rememberMe(AbstractHttpConfigurer::disable)
+            .rememberMe(AbstractHttpConfigurer::disable)// 쿠키에 저장
+//            .addFilterBefore(emailLoginFilter, UsernamePasswordAuthenticationFilter.class)
+//
+//            .addFilterAfter(jwtFilter,UsernamePasswordAuthenticationFilter.class)
             .build();
     }
 

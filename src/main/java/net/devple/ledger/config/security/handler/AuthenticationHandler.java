@@ -15,17 +15,23 @@ import net.devple.ledger.config.security.provider.JwtProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AuthenticationHandler implements AuthenticationSuccessHandler,
-    AuthenticationFailureHandler {
+public class AuthenticationHandler implements AuthenticationSuccessHandler, AuthenticationFailureHandler, AuthenticationEntryPoint {
 
   private final ObjectMapper objectMapper;
   private final JwtProvider tokenProvider;
+
+  @Override
+  public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+      // 인증 필요
+
+  }
 
   @Override
   public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
